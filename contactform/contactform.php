@@ -1,17 +1,17 @@
 ﻿	<?php
 
 	// Replace this with your own email address
-	$siteOwnersEmail = 'info@klino.cl, contacto@klino.cl';
+	$siteOwnersEmail = 'bruno.zeroleft@gmail.com';
 
 
 	if($_POST) {
 		
-		$name = trim(stripslashes($_POST['contactName']));
-		$email = trim(stripslashes($_POST['contactEmail']));
-		$subject = trim(stripslashes($_POST['contactSubject']));
-		$contact_message = trim(stripslashes($_POST['contactMessage']));
+		$name = trim(stripslashes($_POST['name']));
+		$email = trim(stripslashes($_POST['email']));
+		$subject = trim(stripslashes($_POST['subject']));
+		$contact_message = trim(stripslashes($_POST['message']));
 		$error= null;
-		// Check Name
+		/*// Check Name
 		if (strlen($name) < 2) {
 			$error['name'] = "Por favor ingresa tu nombre.";
 		}
@@ -27,7 +27,7 @@
 		
 		if ($subject == '') { 					
 			$subject = "Formulario de contacto"; 					
-		}
+		}*/
 		// Set Message		
 		$message = null;
 		$message .= "De: " . $name . "<br />";
@@ -43,8 +43,19 @@
 		$headers .= "MIME-Version: 1.0\r\n";
 		$headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
 
+		//trigger exception in a "try" block
+		try {
+			ini_set("sendmail_from", $siteOwnersEmail); // for windows server
+			$mail = mail($siteOwnersEmail, $subject, $message, $headers);
+			echo "OK";
+		}
+		
+		//catch exception
+		catch(Exception $e) {
+			echo 'Ocurrio un error no controlado : ' .$e->getMessage();
+		}
 
-		if (!$error) {
+		/*if (!$error) {
 
 			ini_set("sendmail_from", $siteOwnersEmail); // for windows server
 			$mail = mail($siteOwnersEmail, $subject, $message, $headers);
@@ -62,8 +73,9 @@
 			
 			echo $response;
 
-		} # end if - there was a validation error
+		} # end if - there was a validation error*/
 
+		
 	}
 
 	?>
