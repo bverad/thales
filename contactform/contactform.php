@@ -1,7 +1,7 @@
 ﻿	<?php
 
 	// Replace this with your own email address
-	$siteOwnersEmail = 'enkilsumer@gmail.com';
+	$siteOwnersEmail = 'contacto@thales.cl';
 
 
 	if($_POST) {
